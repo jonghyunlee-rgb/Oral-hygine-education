@@ -34,8 +34,11 @@
     .cta { background: linear-gradient(90deg, var(--brand), var(--brand-2)); color: white; border: 0; padding: 10px 16px; border-radius: 999px; font-weight: 700; box-shadow: var(--shadow); cursor: pointer; }
     .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; margin-top: 24px; }
     .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
-    h1 { font-size: clamp(28px, 3.5vw, 46px); line-height: 1.05; margin: 0 0 10px; }
+
+    /* Slightly smaller hero title per request */
+    h1 { font-size: clamp(24px, 3vw, 40px); line-height: 1.08; margin: 0 0 10px; }
     h2 { font-size: clamp(22px, 2.2vw, 32px); margin: 0 0 10px; }
+
     p.lead { font-size: 1.125rem; opacity: .9; }
     .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
     .step { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: start; }
@@ -77,7 +80,7 @@
     <header aria-label="Page header">
       <div>
         <strong style="font-size:1.1rem">Super Smiles!</strong><br/>
-        <span aria-hidden="true">🪥✨ Healthy Teeth for Kids</span>
+        <span aria-hidden="true">HEALTH EDUCATION : IMPORTANCE OF ORAL HYGIENE</span>
       </div>
       <button class="cta" onclick="document.getElementById('timer').scrollIntoView({behavior:'smooth'});">Start 2-min Timer</button>
     </header>
@@ -86,6 +89,7 @@
       <div class="card">
         <h1>Brushing & Flossing Made Fun 🦷</h1>
         <p class="lead">Simple steps kids can follow at home or in school clinics. Grown-ups: there are quick tips for you too!</p>
+
         <div class="grid" aria-label="Quick tips">
           <div class="step">
             <div class="icon" aria-hidden="true">⏱️</div>
@@ -94,6 +98,7 @@
               <p>Brush morning and night with a pea-sized fluoride toothpaste. Spit, don’t rinse.</p>
             </div>
           </div>
+
           <div class="step">
             <div class="icon" aria-hidden="true">🧵</div>
             <div>
@@ -101,6 +106,7 @@
               <p>Slide the floss in a gentle C-shape around each tooth to clean where brushes can’t reach.</p>
             </div>
           </div>
+
           <div class="step">
             <div class="icon" aria-hidden="true">🥕</div>
             <div>
@@ -108,11 +114,31 @@
               <p>Choose water, milk, fruits, veggies, and cheese. Keep sweets and sticky snacks rare.</p>
             </div>
           </div>
+
+          <!-- Updated tile title + description -->
           <div class="step">
             <div class="icon" aria-hidden="true">🛡️</div>
             <div>
-              <h3>Protect with fluoride</h3>
-              <p>Use fluoride toothpaste and talk to a dentist about varnish or sealants for molars.</p>
+              <h3>Protect with fluoride + sealants</h3>
+              <p>Use fluoride toothpaste and ask your dentist about sealants.</p>
+            </div>
+          </div>
+
+          <!-- NEW education tile: plaque -->
+          <div class="step">
+            <div class="icon" aria-hidden="true">🦠</div>
+            <div>
+              <h3>What is plaque?</h3>
+              <p>A sticky film that covers your teeth. It can lead to cavities, especially when you eat sugar—sugar releases acids that attack enamel.</p>
+            </div>
+          </div>
+
+          <!-- NEW education tile: fluoride -->
+          <div class="step">
+            <div class="icon" aria-hidden="true">💎</div>
+            <div>
+              <h3>What is fluoride?</h3>
+              <p>A naturally occurring mineral that strengthens tooth enamel, making teeth more resistant to decay.</p>
             </div>
           </div>
         </div>
@@ -172,7 +198,6 @@
   </div>
 
   <script>
-    // Run after DOM is ready
     document.addEventListener('DOMContentLoaded', function(){
       // ----- Timer -----
       let timerId = null, remaining = 120, total = 120;
@@ -191,20 +216,39 @@
       }
       function tick(){
         if (remaining > 0){ remaining -= 1; renderTimer(); }
-        else { clearInterval(timerId); timerId = null; timeEl.textContent = 'Done! Great job! 🎉'; progressEl.style.width = '100%'; alert('Two minutes complete — shiny clean! ✨'); }
+        else {
+          clearInterval(timerId); timerId = null;
+          timeEl.textContent = 'Done! Great job! 🎉';
+          progressEl.style.width = '100%';
+          alert('Two minutes complete — shiny clean! ✨');
+        }
       }
-      window.startTimer = function(seconds){ if (seconds){ total = seconds; remaining = seconds; } if (timerId) clearInterval(timerId); renderTimer(); timerId = setInterval(tick, 1000); }
+      window.startTimer = function(seconds){
+        if (seconds){ total = seconds; remaining = seconds; }
+        if (timerId) clearInterval(timerId);
+        renderTimer();
+        timerId = setInterval(tick, 1000);
+      }
       window.pauseTimer = function(){ if (timerId){ clearInterval(timerId); timerId = null; } }
       window.resetTimer = function(){ window.pauseTimer(); remaining = total; renderTimer(); }
       renderTimer();
 
-      // ----- Quiz -----
+      // ----- Quiz (added 3 more questions) -----
       const QUESTIONS = [
         { q: 'How long should you brush?', choices: ['30 seconds', '1 minute', '2 minutes', '5 minutes'], a: 2 },
         { q: 'How much toothpaste for kids 3–6?', choices: ['A giant swirl', 'Pea-sized amount', 'Half the tube', 'None'], a: 1 },
         { q: 'What shape do you make with floss?', choices: ['S-shape', 'Zigzag', 'C-shape', 'Square'], a: 2 },
         { q: 'After brushing with fluoride toothpaste, you should…', choices: ['Rinse with lots of water', 'Eat candy', 'Spit, don’t rinse', 'Brush again immediately'], a: 2 },
-        { q: 'Which snack is the tooth-friendliest?', choices: ['Soda', 'Cheese and apple slices', 'Sticky gummies often', 'Juice all day'], a: 1 }
+        { q: 'Which snack is the tooth-friendliest?', choices: ['Soda', 'Cheese and apple slices', 'Sticky gummies often', 'Juice all day'], a: 1 },
+
+        // NEW Q1: plaque
+        { q: 'What is plaque?', choices: ['A sticky film on teeth', 'A type of toothbrush', 'A healthy vitamin', 'A mouthwash flavor'], a: 0 },
+
+        // NEW Q2: sugar + acids
+        { q: 'Why can sugary snacks lead to cavities?', choices: ['Sugar releases acids that attack enamel', 'Sugar makes teeth stronger', 'Sugar cleans plaque away', 'Sugar replaces fluoride'], a: 0 },
+
+        // NEW Q3: fluoride
+        { q: 'What does fluoride do?', choices: ['Strengthens enamel to resist decay', 'Removes braces instantly', 'Turns teeth purple', 'Makes floss unnecessary'], a: 0 }
       ];
 
       const quizEl = document.getElementById('quiz');
@@ -245,7 +289,6 @@
         ul.querySelectorAll('button.choice').forEach(b => b.disabled = true);
       }
 
-      // Single delegated listener (click anywhere on a choice button)
       quizEl.addEventListener('click', (e) => {
         const btn = e.target.closest('button.choice');
         if (!btn) return;
