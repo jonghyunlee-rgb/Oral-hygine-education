@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super Smiles! — Oral Hygiene for Kids</title>
+  <meta name="description" content="Fun, simple brushing & flossing tips for kids, with a 2-minute timer and a quick quiz." />
+  <style>
+    :root {
+      --bg: #fffdf8;
+      --card: #ffffff;
+      --text: #20304a;
+      --brand: #3db0ff;
+      --brand-2: #ff8ac3;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 20px;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, #eaf6ff 0%, transparent 60%),
+        radial-gradient(900px 500px at 100% 10%, #fff0f7 0%, transparent 60%),
+        var(--bg);
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+    header {
+      display: grid; gap: 16px; align-items: center; grid-template-columns: 1fr auto;
+      background: var(--card); padding: 16px 18px; border-radius: var(--radius); box-shadow: var(--shadow);
+      position: sticky; top: 12px; z-index: 5; backdrop-filter: blur(8px);
+    }
+    .cta { background: linear-gradient(90deg, var(--brand), var(--brand-2)); color: white; border: 0; padding: 10px 16px; border-radius: 999px; font-weight: 700; box-shadow: var(--shadow); cursor: pointer; }
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; margin-top: 24px; }
+    .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+    h1 { font-size: clamp(28px, 3.5vw, 46px); line-height: 1.05; margin: 0 0 10px; }
+    h2 { font-size: clamp(22px, 2.2vw, 32px); margin: 0 0 10px; }
+    p.lead { font-size: 1.125rem; opacity: .9; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: start; }
+    .step .icon { width: 48px; height: 48px; display: grid; place-items: center; font-size: 26px; background: #f6fbff; border-radius: 12px; }
+
+    /* Timer */
+    .timer { text-align: center; }
+    .big { font-size: clamp(38px, 6vw, 72px); font-weight: 800; letter-spacing: 1px; }
+    .bar { height: 14px; border-radius: 999px; background: #eef2f7; overflow: hidden; margin: 10px 0 0; }
+    .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: width .2s ease; }
+    .timer-controls { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); }
+    .btn.primary { background: #eaf6ff; }
+    .btn.good { background: #eafaf1; }
+    .btn.warn { background: #fff6e1; }
+
+    /* Quiz */
+    .quiz q { font-weight: 700; }
+    .choices { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+    .choices li { background: #f7fbff; border-radius: 12px; border: 2px solid transparent; }
+    .choices li:hover { border-color: #dfeeff; }
+    .choices button {
+      all: unset; display: block; width: 100%; padding: 10px 12px;
+      cursor: pointer; user-select: none; border-radius: 12px;
+    }
+    .choices button:focus-visible { outline: 3px solid #a9d2ff; outline-offset: 2px; }
+    .choices li.correct { background: #ecfbf2; border-color: #c9f2d9; }
+    .choices li.wrong   { background: #fff0f0; border-color: #ffd7d7; }
+
+    footer { margin-top: 40px; text-align: center; opacity: .8; font-size: .95rem; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header aria-label="Page header">
+      <div>
+        <strong style="font-size:1.1rem">Super Smiles!</strong><br/>
+        <span aria-hidden="true">🪥✨ Healthy Teeth for Kids</span>
+      </div>
+      <button class="cta" onclick="document.getElementById('timer').scrollIntoView({behavior:'smooth'});">Start 2-min Timer</button>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h1>Brushing & Flossing Made Fun 🦷</h1>
+        <p class="lead">Simple steps kids can follow at home or in school clinics. Grown-ups: there are quick tips for you too!</p>
+        <div class="grid" aria-label="Quick tips">
+          <div class="step">
+            <div class="icon" aria-hidden="true">⏱️</div>
+            <div>
+              <h3>2 minutes, 2 times a day</h3>
+              <p>Brush morning and night with a pea-sized fluoride toothpaste. Spit, don’t rinse.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="icon" aria-hidden="true">🧵</div>
+            <div>
+              <h3>Floss once a day</h3>
+              <p>Slide the floss in a gentle C-shape around each tooth to clean where brushes can’t reach.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="icon" aria-hidden="true">🥕</div>
+            <div>
+              <h3>Snack smart</h3>
+              <p>Choose water, milk, fruits, veggies, and cheese. Keep sweets and sticky snacks rare.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="icon" aria-hidden="true">🛡️</div>
+            <div>
+              <h3>Protect with fluoride</h3>
+              <p>Use fluoride toothpaste and talk to a dentist about varnish or sealants for molars.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="timer" class="card timer" aria-live="polite">
+        <h2>2-Minute Brushing Timer</h2>
+        <div class="big" id="time">02:00</div>
+        <div class="bar" aria-label="Timer progress"><div id="progress"></div></div>
+        <div class="timer-controls" role="group" aria-label="Timer controls">
+          <button class="btn primary" onclick="startTimer(120)">Start</button>
+          <button class="btn warn" onclick="pauseTimer()">Pause</button>
+          <button class="btn good" onclick="resetTimer()">Reset</button>
+        </div>
+        <p style="margin-top:8px">Tip: Brush <strong>all surfaces</strong> — outsides, insides, and chewing surfaces. Don’t forget your tongue!</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="howto-h">
+      <h2 id="howto-h">How to Brush (Kid-Friendly Steps)</h2>
+      <ol>
+        <li>Put a <strong>pea-sized</strong> dot of fluoride toothpaste on the brush.</li>
+        <li>Angle the bristles toward the gums (about <strong>45°</strong>).</li>
+        <li>Use <strong>gentle circles</strong> on the outside, inside, and top of every tooth.</li>
+        <li>Brush the tongue for fresh breath.</li>
+        <li>Spit out the extra toothpaste. <em>No water rinse</em> keeps the fluoride working.</li>
+      </ol>
+      <details>
+        <summary><strong>Grown-up tips</strong></summary>
+        <ul>
+          <li>For ages <strong>3–6</strong>: supervise and help; kids this age still need assistance.</li>
+          <li>Replace toothbrushes every <strong>3 months</strong> or after illness.</li>
+          <li>Schedule regular dental visits and ask about <strong>sealants</strong> for first molars.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="floss-h">
+      <h2 id="floss-h">How to Floss</h2>
+      <ul>
+        <li>Take about an arm’s length of floss. Wrap ends around your fingers.</li>
+        <li>Guide the floss gently between teeth. Curve it in a <strong>C-shape</strong> against each tooth.</li>
+        <li>Slide up and down to clean the side of each tooth and under the gum line.</li>
+      </ul>
+    </section>
+
+    <section class="card quiz" aria-labelledby="quiz-h">
+      <h2 id="quiz-h">Quick Quiz 🎉</h2>
+      <p>Test what you learned! Click the best answer.</p>
+      <div id="quiz"></div>
+      <p id="score" style="font-weight:700; margin-top:8px"></p>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> WesternU DMD 2028</div>
+    </footer>
+  </div>
+
+  <script>
+    // Run after DOM is ready
+    document.addEventListener('DOMContentLoaded', function(){
+      // ----- Timer -----
+      let timerId = null, remaining = 120, total = 120;
+      const timeEl = document.getElementById('time');
+      const progressEl = document.getElementById('progress');
+
+      function formatTime(sec){
+        const m = String(Math.floor(sec/60)).padStart(2,'0');
+        const s = String(sec%60).padStart(2,'0');
+        return `${m}:${s}`;
+      }
+      function renderTimer(){
+        timeEl.textContent = formatTime(remaining);
+        const pct = 100 * (1 - remaining/total);
+        progressEl.style.width = pct + '%';
+      }
+      function tick(){
+        if (remaining > 0){ remaining -= 1; renderTimer(); }
+        else { clearInterval(timerId); timerId = null; timeEl.textContent = 'Done! Great job! 🎉'; progressEl.style.width = '100%'; alert('Two minutes complete — shiny clean! ✨'); }
+      }
+      window.startTimer = function(seconds){ if (seconds){ total = seconds; remaining = seconds; } if (timerId) clearInterval(timerId); renderTimer(); timerId = setInterval(tick, 1000); }
+      window.pauseTimer = function(){ if (timerId){ clearInterval(timerId); timerId = null; } }
+      window.resetTimer = function(){ window.pauseTimer(); remaining = total; renderTimer(); }
+      renderTimer();
+
+      // ----- Quiz -----
+      const QUESTIONS = [
+        { q: 'How long should you brush?', choices: ['30 seconds', '1 minute', '2 minutes', '5 minutes'], a: 2 },
+        { q: 'How much toothpaste for kids 3–6?', choices: ['A giant swirl', 'Pea-sized amount', 'Half the tube', 'None'], a: 1 },
+        { q: 'What shape do you make with floss?', choices: ['S-shape', 'Zigzag', 'C-shape', 'Square'], a: 2 },
+        { q: 'After brushing with fluoride toothpaste, you should…', choices: ['Rinse with lots of water', 'Eat candy', 'Spit, don’t rinse', 'Brush again immediately'], a: 2 },
+        { q: 'Which snack is the tooth-friendliest?', choices: ['Soda', 'Cheese and apple slices', 'Sticky gummies often', 'Juice all day'], a: 1 }
+      ];
+
+      const quizEl = document.getElementById('quiz');
+      const scoreEl = document.getElementById('score');
+      let score = 0;
+
+      function renderQuiz(){
+        QUESTIONS.forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.style.marginTop = '8px';
+
+          const q = document.createElement('div');
+          q.innerHTML = `<q>${item.q}</q>`;
+
+          const ul = document.createElement('ul');
+          ul.className = 'choices';
+          ul.dataset.qidx = idx;
+
+          item.choices.forEach((c, i) => {
+            const li = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.className = 'choice';
+            btn.type = 'button';
+            btn.textContent = c;
+            btn.dataset.choice = i;
+            li.appendChild(btn);
+            ul.appendChild(li);
+          });
+
+          card.appendChild(q);
+          card.appendChild(ul);
+          quizEl.appendChild(card);
+        });
+      }
+
+      function lock(ul){
+        ul.dataset.locked = '1';
+        ul.querySelectorAll('button.choice').forEach(b => b.disabled = true);
+      }
+
+      // Single delegated listener (click anywhere on a choice button)
+      quizEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('button.choice');
+        if (!btn) return;
+
+        const ul = btn.closest('ul.choices');
+        if (!ul || ul.dataset.locked) return;
+
+        const qIdx = Number(ul.dataset.qidx);
+        const choiceIdx = Number(btn.dataset.choice);
+        const correct = QUESTIONS[qIdx].a;
+
+        [...ul.children].forEach((li, i) => {
+          if (i === correct) li.classList.add('correct');
+          else if (i === choiceIdx) li.classList.add('wrong');
+        });
+
+        if (choiceIdx === correct) score++;
+        lock(ul);
+        scoreEl.textContent = `Score: ${score}/${QUESTIONS.length}`;
+      });
+
+      renderQuiz();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
