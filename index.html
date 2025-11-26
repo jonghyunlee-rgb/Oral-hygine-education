@@ -68,6 +68,10 @@
     .choices li.correct { background: #ecfbf2; border-color: #c9f2d9; }
     .choices li.wrong   { background: #fff0f0; border-color: #ffd7d7; }
 
+    /* References */
+    .refs a { color: var(--text); font-weight: 700; text-decoration: none; word-break: break-word; }
+    .refs a:hover { text-decoration: underline; }
+
     footer { margin-top: 40px; text-align: center; opacity: .8; font-size: .95rem; }
 
     @media (max-width: 900px) {
@@ -190,6 +194,43 @@
       <p>Test what you learned! Click the best answer.</p>
       <div id="quiz"></div>
       <p id="score" style="font-weight:700; margin-top:8px"></p>
+    </section>
+
+    <!-- NEW: References box container (after all questions) -->
+    <section class="card refs" aria-labelledby="refs-h">
+      <h2 id="refs-h">References (ADA/APA-style)</h2>
+      <ol style="margin: 0; padding-left: 1.2rem; line-height: 1.5;">
+        <li>
+          Godman, H. (2024, September 27). <em>What’s the right way to brush your teeth?</em> Harvard Health.
+          <a href="https://www.health.harvard.edu/blog/whats-the-right-way-to-brush-your-teeth-202211232854" target="_blank" rel="noopener noreferrer">
+            https://www.health.harvard.edu/blog/whats-the-right-way-to-brush-your-teeth-202211232854
+          </a>
+        </li>
+        <li>
+          Zapata, K. (2024, January 3). <em>Floss more in 2024 - UT Health San Antonio.</em> UT Health San Antonio.
+          <a href="https://news.uthscsa.edu/floss-more-in-2024/" target="_blank" rel="noopener noreferrer">
+            https://news.uthscsa.edu/floss-more-in-2024/
+          </a>
+        </li>
+        <li>
+          Cleveland Clinic. (2023, January 4). <em>Is cheese good for you?</em>
+          <a href="https://health.clevelandclinic.org/is-cheese-good-for-you" target="_blank" rel="noopener noreferrer">
+            https://health.clevelandclinic.org/is-cheese-good-for-you
+          </a>
+        </li>
+        <li>
+          American Dental Association. (n.d.). <em>Plaque.</em> MouthHealthy — Oral Health Information From the ADA.
+          <a href="https://www.mouthhealthy.org/all-topics-a-z/plaque" target="_blank" rel="noopener noreferrer">
+            https://www.mouthhealthy.org/all-topics-a-z/plaque
+          </a>
+        </li>
+        <li>
+          Cleveland Clinic. (2025, November 17). <em>Fluoride.</em>
+          <a href="https://my.clevelandclinic.org/health/treatments/11195-fluoride" target="_blank" rel="noopener noreferrer">
+            https://my.clevelandclinic.org/health/treatments/11195-fluoride
+          </a>
+        </li>
+      </ol>
     </section>
 
     <footer>
